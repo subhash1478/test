@@ -1,0 +1,26 @@
+ 
+<div class="signin-content" >
+    <mat-card>
+      <mat-card-content>
+          <img src="assets/logo.png"/>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <p>Please login to continue</p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="isFieldInvalid('email')">
+              Please enter a valid Email
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Password" formControlName="password" required>
+            <mat-error *ngIf="isFieldInvalid('password')">
+              Please enter password
+            </mat-error>
+          </mat-form-field>
+          <button mat-button color="primary" type="submit">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

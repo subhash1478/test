@@ -1,0 +1,111 @@
+ 
+
+
+<mat-card>
+  <mat-select placeholder="Select candidate"  matTooltip="Select candidate" [(ngModel)]="candidate"  (ngModelChange)="getResult()" >
+    <mat-option   *ngFor="let item of candidatelist ;let i =index" [value]="item.id">{{item.candidate_name}}</mat-option>
+  </mat-select>
+</mat-card>
+
+    <div *ngIf="assignExam">
+      <button  mat-button color="warn" matTooltip="Assign Exam to candidate" (click)="getCategory()"> Assign exam</button>
+      <div class="example-container" *ngFor="let item of categoryList   ">
+ 
+            <mat-checkbox   [(ngModel)]="item.checked">{{item.title}}</mat-checkbox>
+            <section class="example-section"  *ngIf="item.easy>0 && item.checked" matTooltip="{{item.easy}} Easy {{item.title}} Question available  ">
+              Easy ({{item.easy}})  
+              <p matTooltip="{{item.easy_selected+item.medium_selected+item.difficulty_selected}} {{item.title}}   Question Assign  "> Total Question Assign (  {{item.easy_selected+item.medium_selected+item.difficulty_selected}}
+                )</p>
+                <mat-select placeholder="Select " [(ngModel)]="item.easy_selected">
+                  <mat-option    *ngFor='let il of counter(item.easy);let i=index' [value]="i+1">{{i+1}}</mat-option>
+                </mat-select>
+              </section>
+              <section class="example-section"  *ngIf="item.medium>0 && item.checked" matTooltip="{{item.medium}} Medium {{item.title}} Question available  " >
+                Medium ({{item.medium}})
+                <mat-select placeholder="Select "  [(ngModel)]="item.medium_selected" >
+                  <mat-option    *ngFor='let il of counter(item.medium);let i=index' [value]="i+1">{{i+1}}</mat-option>
+                </mat-select>
+              </section>
+              <section class="example-section"  *ngIf="item.difficulty>0 && item.checked" matTooltip="{{item.difficulty}} difficulty {{item.title}} Question available  ">
+                Difficulty ({{item.difficulty}})
+                <mat-select placeholder="Select" [(ngModel)]="item.difficulty_selected">
+                  <mat-option    *ngFor='let il of counter(item.difficulty);let i=index' [value]="i+1">{{i+1}}</mat-option>
+                </mat-select>
+              </section>
+        
+        </div>
+        <button mat-button  color="warn" matTooltip="After assign exam generate exam code" (click)="generateExamCode()"> Generate exam code</button>
+      </div>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let item of examList ;let i=index"  (opened)="getSkill(item)"
+        >
+        <mat-expansion-panel-header   >
+          <mat-panel-title>
+            {{i+1}}. {{item.examination_code}}  
+          </mat-panel-title>
+          <mat-panel-description>
+            Assigned on {{item.createdAt|date}}
+          </mat-panel-description>
+          <mat-panel-description>
+            Exam 
+            {{(item.exam_over==1)?'completed':'pending'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+         
+
+<mat-card>
+  <mat-card-title>Score Board</mat-card-title>
+    <mat-list role="list"  >
+        <mat-list-item  >Total score {{totalScore}}/{{total_question}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+         <mat-list-item >Percentage {{percenatge}} %</mat-list-item>
+      </mat-list>
+</mat-card>
+
+             
+
+
+
+
+
+
+
+          <mat-tab-group   (focusChange)="onSelect($event)" >
+            <mat-tab *ngFor="let it of skillDatavalue"[label]="it.skill_id.title"  >
+              
+            
+            
+
+
+             <mat-chip-list>
+         
+              <mat-chip color="primary" matTooltip="click to copy exam code " mat-button (click)="copyText(item.examination_code)" selected>  <mat-icon>file_copy</mat-icon> {{item.examination_code}} </mat-chip>
+              <mat-chip color="accent" selected>Exam finished by {{exam_finished|uppercase}}</mat-chip>
+            </mat-chip-list>
+
+
+
+
+
+
+
+
+
+
+
+              
+            <ngx-charts-advanced-pie-chart
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="single"
+              [gradient]="gradient"
+              (select)="onSelect($event)">
+            </ngx-charts-advanced-pie-chart> 
+          </mat-tab>
+        </mat-tab-group>      
+      </mat-panel-description>
+ 
+    </mat-expansion-panel>
+    </mat-accordion>  

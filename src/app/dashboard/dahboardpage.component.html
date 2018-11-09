@@ -1,0 +1,63 @@
+  <div class="signin-content" *ngIf="!showForm"  >
+    <mat-card>
+        <mat-card-title>            <p>Add Question</p>
+        </mat-card-title>
+        <mat-card-content>
+            <mat-form-field>
+                <mat-select matTooltip="Select exam category" placeholder="Select category" [(ngModel)]="quiz.skill">
+                    <mat-option   *ngFor="let item of categoryList ;let i =index" [value]="item.id">{{item.title}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select matTooltip="Select Difficulty level " placeholder="Select Difficulty level" [(ngModel)]="quiz.level">
+                    <mat-option    value="easy">easy</mat-option>
+                    <mat-option    value="easy">medium</mat-option>
+                    <mat-option    value="easy">difficulty</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+ 
+            <ngx-wig [content]="text1" matTooltip="Enter the question" [(ngModel)]="quiz.question"></ngx-wig>
+
+           
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Add code" matTooltip="Add source code"  [(ngModel)]="quiz.code"></textarea>
+            </mat-form-field>
+            <button matTooltip="Add more answer" mat-button color="primary" (click)="addAnswer()">
+                <mat-icon>add</mat-icon>
+                Add answer</button>
+                <div *ngFor="let item of answerlist ;let i =index" class="animated slideInDown"> 
+                    {{i+1 }}  <mat-form-field >
+                        <input matInput placeholder="Answer" matTooltip="Enter answer here" [(ngModel)]="item.answer">
+                        <mat-radio-group  matTooltip="select the correct answer" [(ngModel)]="quiz.correct_answer">
+                            <mat-radio-button   [value]="i">Correct answer </mat-radio-button>
+                        </mat-radio-group>
+                        <button matTooltip="Delete this answer" mat-button color="primary" (click)="removeAnswer(i)"><mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <button mat-button color="primary"  (click)="addQuestion()" >
+                    Next
+                </button>
+            </mat-card-content></mat-card></div>
+
+
+
+            <div class="signin-content" *ngIf="showForm">
+                <mat-card>
+                    <mat-card-content>
+                        <p>Add Question</p>
+                        <input  
+                        style="display: none" 
+                        type="file" (change)="addImage($event)" 
+                        #fileInput>
+                        <button mat-icon-button (click)="fileInput.click()">Upload Image
+                          <mat-icon >cloud_upload</mat-icon>
+                        </button>
+                  
+                        <img *ngIf="url!=null" [src]="url" mat-card-sm-image> <br/>
+                        <button mat-button color="primary"  (click)="goToListing()" >
+                            Save
+                        </button>
+                    </mat-card-content></mat-card></div>

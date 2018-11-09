@@ -1,0 +1,23 @@
+<mat-card>
+  <h1 id="quiz_title">
+    Quiz Instructions
+  </h1>
+  <h2>Instructions</h2>
+  <p>This quiz consists of  multiple-choice questions. </p>
+  <ul>
+    <li>
+      <strong>Timing</strong> - You will need to complete each of your attempts in one sitting, as you are allotted   minutes to complete each attempt.</li>
+      <li>
+        <strong>Answers</strong> - You may review your answer-choices and compare them to the correct answers after your final attempt.</li>
+        <p>To start, Accept the terms and condtion then click the <strong>"Take the Quiz"</strong> button. When finished,  answer will be automatic submitted</p>
+      </ul>
+      <mat-checkbox [(ngModel)]="disabled">I accept the terms and condtion </mat-checkbox>
+
+
+      <button mat-raised-button block large routerLink="/quiz" [disabled]="!disabled" >Take the Quiz</button>
+   
+   
+    </mat-card>
+
+
+

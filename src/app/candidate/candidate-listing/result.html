@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Result</h1>
+ 
+<mat-list *ngFor="let item of resultListing ;let i=index">
+    <mat-list-item (click)="getScore(item.examination_code)">
+      {{i+1}}.
+      
+       {{item.createdAt|date:'medium' }}
+    
+       <mat-divider></mat-divider>
+
+<small >{{(item.exam_over==1)?'Completed':'pending'}}</small>
+     </mat-list-item>
+    
+    <mat-divider></mat-divider>
+   
+  </mat-list>
+
+<mat-card>
+
+    <mat-list *ngFor="let item of score" class="animated fadeIn">
+        <mat-list-item  >{{item.skill.title
+          }} {{item.percentage 
+          }}  %</mat-list-item>
+        
+        <mat-divider></mat-divider>
+       
+      </mat-list>
+
+</mat-card>

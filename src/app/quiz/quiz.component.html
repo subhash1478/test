@@ -1,0 +1,60 @@
+ <div class="signin-content" id="my-element">
+  <mat-progress-bar [mode]="loader"></mat-progress-bar>
+   <!--
+    -- ──────────────────────────────────────────────────────────────────────── I ──────────
+    --   :::::: E X A M I N A T I O N   C O D E : :  :   :    :     :        :          :
+    -- ──────────────────────────────────────────────────────────────────────────────────
+  -->
+  <countdown [config]="totalTime" (start)="onStart()" (finished)="onFinished()"  >$!m!:$!s!</countdown>
+  <mat-card *ngIf="hide_examination_code" class="animated fadeIn small" >
+    <img src="assets/logo.png"/>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+        <p>Please Enter Exam code</p>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Exam Code" formControlName="examination_code" required>
+          <mat-error *ngIf="isFieldInvalid('examination_code')">
+            Please enter a Exam code
+          </mat-error>
+        </mat-form-field>
+        <button mat-button color="accent" type="submit">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <!--
+    -- ────────────────────────────────────────────────── I ──────────
+    --   :::::: S K I L L : :  :   :    :     :        :          :
+    -- ────────────────────────────────────────────────────────────
+  -->
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let item of skillLIst ;let i=index">
+        <button mat-stroked-button *ngIf="(item.exam_over==1)?false:true" color="accent" (click)="getQuestion(item)">{{item.skill_id.title}} {{item.total_question}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <!--
+    -- ────────────────────────────────────────────────────────────────── I ──────────
+    --   :::::: Q U E S T I O N   L I S T : :  :   :    :     :        :          :
+    -- ────────────────────────────────────────────────────────────────────────────
+  -->
+  <ng-container *ngFor="let item of questionList ;let i=index">
+    <mat-card *ngIf="!item.show" >
+      {{i+1}}. {{item.question}}
+      <img [src]="item.image" alt="">
+      <mat-divider></mat-divider>
+      <mat-card *ngIf="item.code"><pre   class="language-java"> {{item.code}}</pre></mat-card>
+      <mat-card style="text-align:left;padding: 10px;">
+        <mat-radio-group class="example-radio-group" [(ngModel)]="item.submitted_answer">
+          <mat-radio-button  class="example-radio-button" *ngFor="let ans of item.answer ;let idex=index" [value]="idex">
+            {{ans.answer}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <div>
+          <button mat-raised-button color="primary" *ngIf="i!='0'" (click)="showQuestionBack(i)">Back</button>
+          <button mat-raised-button color="accent" (click)="showQuestionForward(i+1)">Next</button>
+        </div>
+      </mat-card>
+    </mat-card>
+  </ng-container>
+</div>

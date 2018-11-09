@@ -1,0 +1,10 @@
+table {
+  width: 100%;
+}
+
+mat-select {width: 50%;
+padding-left: 10%;}
+
+mat-form-field{
+  padding: 5px;
+}

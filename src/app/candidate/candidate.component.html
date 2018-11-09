@@ -1,0 +1,82 @@
+ 
+<div     *ngIf="!uploadResume">
+  <mat-card >
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p>Add candidate</p>
+        <mat-form-field class="full-width-input">
+          <input matInput matTooltip="Enter candidate name" placeholder="Candidate Name" formControlName="candidate_name" required>
+          <mat-error *ngIf="isFieldInvalid('candidate_name')">
+            Please enter a valid candidate_name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput matTooltip="Enter candidate phone number" placeholder="Phone" formControlName="phone" required>
+          <mat-error *ngIf="isFieldInvalid('phone')">
+            Please enter a valid phone
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" matTooltip="Enter candidate email" formControlName="candidate_email" required>
+          <mat-error *ngIf="isFieldInvalid('candidate_email')">
+            Please enter a valid Email
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field  >
+          <mat-chip-list #chipList matTooltip="Enter skill and press enter">
+            <mat-chip  selected *ngFor="let requirement of form.get('skill').controls; let i = index;" [selectable]="selectable"
+            [removable]="removable"   [color]="i%2==0?'accent':primary"  >
+            {{requirement.value}}
+            <mat-icon matChipRemove (click)="remove(i)">cancel{{removable}}</mat-icon>
+          </mat-chip>
+          <input placeholder="Skill..."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"  required/>
+        </mat-chip-list>
+      </mat-form-field> 
+      <mat-form-field class="full-width-input" >
+        <input matInput placeholder="Experience in months" matTooltip="Enter experience in number Ex:60" formControlName="experience" required>
+        <mat-error *ngIf="isFieldInvalid('experience')">
+          Please enter a valid experience
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input" >
+        <input matInput placeholder="Education" matTooltip="Enter highest education" formControlName="education" required>
+        <mat-error *ngIf="isFieldInvalid('education')">
+          Please enter a valid education
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input" >
+        <input matInput placeholder="Address" matTooltip="Enter candidate address" formControlName="address" required>
+        <mat-error *ngIf="isFieldInvalid('address')">
+          Please enter a valid address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput type="text"  matTooltip="Enter refrence name if not present enter na" placeholder="Refrence (if not available type na)" formControlName="refrence">
+      </mat-form-field>
+      <button mat-button color="primary" type="submit">Next</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+</div> 
+<div class="signin-content"  *ngIf="uploadResume">
+  <mat-card>
+    <mat-card-content>
+       
+      <input  
+      style="display: none" 
+      type="file" (change)="addImage($event,item._id)" 
+      #fileInput>
+      <button mat-icon-button (click)="fileInput.click()">Upload Resume
+        <mat-icon >cloud_upload</mat-icon>
+      </button>
+
+    </mat-card-content>
+    <button   mat-raised-button color="accent"  (click)="goToCandidateListing()" >Done</button>
+
+  </mat-card>
+  </div>
